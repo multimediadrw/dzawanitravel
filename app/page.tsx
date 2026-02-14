@@ -1,51 +1,49 @@
 import Link from "next/link";
+import { Mosque, Plane, Globe, CheckCircle, DollarSign, Hotel, Users } from "lucide-react";
 
 export default function Home() {
   const packages = [
     {
       id: 1,
       title: "Umroh Reguler 9 Hari",
-      price: "Rp 25.000.000",
       description: "Paket umroh reguler dengan fasilitas lengkap dan nyaman",
       features: ["Hotel Bintang 5", "Makkah 4 Malam", "Madinah 4 Malam", "Visa & Perlengkapan"],
-      image: "🕌",
+      Icon: Mosque,
     },
     {
       id: 2,
       title: "Umroh Plus Turki 16 Hari",
-      price: "Rp 45.000.000",
       description: "Umroh plus wisata religi ke Turki dengan pengalaman tak terlupakan",
       features: ["Hotel Bintang 5", "Umroh + Turki", "City Tour", "Visa & Perlengkapan"],
-      image: "✈️",
+      Icon: Plane,
     },
     {
       id: 3,
       title: "Paket Wisata Eropa",
-      price: "Rp 35.000.000",
       description: "Jelajahi keindahan Eropa dengan paket wisata terlengkap",
       features: ["Hotel Bintang 4", "5 Negara", "Tour Guide", "Visa & Asuransi"],
-      image: "🌍",
+      Icon: Globe,
     },
   ];
 
   const features = [
     {
-      icon: "✓",
+      Icon: CheckCircle,
       title: "Terpercaya",
       description: "Berpengalaman lebih dari 10 tahun melayani jamaah umroh dan wisatawan",
     },
     {
-      icon: "💰",
+      Icon: DollarSign,
       title: "Harga Terjangkau",
       description: "Paket dengan harga kompetitif dan sistem pembayaran yang fleksibel",
     },
     {
-      icon: "🏨",
+      Icon: Hotel,
       title: "Fasilitas Terbaik",
       description: "Hotel bintang 5, transportasi nyaman, dan pelayanan maksimal",
     },
     {
-      icon: "👥",
+      Icon: Users,
       title: "Pembimbing Profesional",
       description: "Didampingi pembimbing berpengalaman dan berlisensi resmi",
     },
@@ -111,7 +109,9 @@ export default function Home() {
                 key={index}
                 className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-200"
               >
-                <div className="text-4xl mb-4 text-center">{feature.icon}</div>
+                <div className="flex justify-center mb-4">
+                  <feature.Icon className="w-12 h-12 text-purple-600" />
+                </div>
                 <h3 className="text-xl font-semibold mb-2 text-center text-purple-600">
                   {feature.title}
                 </h3>
@@ -129,7 +129,7 @@ export default function Home() {
             Paket Pilihan Kami
           </h2>
           <p className="text-center text-gray-600 mb-12">
-            Pilih paket yang sesuai dengan kebutuhan dan budget Anda
+            Pilih paket yang sesuai dengan kebutuhan Anda
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {packages.map((pkg) => (
@@ -138,9 +138,10 @@ export default function Home() {
                 className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-200"
               >
                 <div className="bg-gradient-to-r from-purple-500 to-purple-700 text-white p-8 text-center">
-                  <div className="text-6xl mb-4">{pkg.image}</div>
+                  <div className="flex justify-center mb-4">
+                    <pkg.Icon className="w-16 h-16" />
+                  </div>
                   <h3 className="text-2xl font-bold mb-2">{pkg.title}</h3>
-                  <p className="text-3xl font-bold">{pkg.price}</p>
                 </div>
                 <div className="p-6">
                   <p className="text-gray-600 mb-4">{pkg.description}</p>
@@ -168,7 +169,7 @@ export default function Home() {
                     href="/kontak"
                     className="block text-center bg-purple-600 text-white px-6 py-3 rounded-full hover:bg-purple-700 transition-colors duration-200 font-semibold"
                   >
-                    Pesan Sekarang
+                    Hubungi Kami
                   </Link>
                 </div>
               </div>
