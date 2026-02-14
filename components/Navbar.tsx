@@ -9,7 +9,6 @@ export default function Navbar() {
   const navLinks = [
     { href: "/", label: "Beranda" },
     { href: "/paket-umroh", label: "Paket Umroh" },
-    { href: "/paket-travel", label: "Paket Travel" },
     { href: "/galeri", label: "Galeri" },
     { href: "/tentang", label: "Tentang Kami" },
     { href: "/kontak", label: "Kontak" },

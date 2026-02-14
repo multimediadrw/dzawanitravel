@@ -1,4 +1,46 @@
+import { Target, CheckCircle, DollarSign, Hotel, Users, Shield, Phone, Award } from "lucide-react";
+
 export default function Tentang() {
+  const whyChooseUs = [
+    {
+      Icon: CheckCircle,
+      title: "Terpercaya & Berlisensi",
+      description: "Terdaftar resmi dan memiliki izin dari Kementerian Agama serta Kementerian Pariwisata",
+    },
+    {
+      Icon: DollarSign,
+      title: "Harga Kompetitif",
+      description: "Paket dengan harga terbaik dan sistem pembayaran yang fleksibel sesuai kemampuan Anda",
+    },
+    {
+      Icon: Hotel,
+      title: "Fasilitas Terbaik",
+      description: "Hotel bintang 5, transportasi nyaman, dan pelayanan maksimal untuk kenyamanan Anda",
+    },
+    {
+      Icon: Users,
+      title: "Tim Profesional",
+      description: "Didampingi pembimbing dan tour guide berpengalaman yang siap membantu Anda",
+    },
+    {
+      Icon: Shield,
+      title: "Jaminan Keamanan",
+      description: "Asuransi perjalanan dan jaminan keamanan untuk setiap jamaah dan wisatawan",
+    },
+    {
+      Icon: Phone,
+      title: "Layanan 24/7",
+      description: "Customer service yang responsif dan siap membantu Anda kapan saja",
+    },
+  ];
+
+  const certifications = [
+    "Terdaftar Kemenag",
+    "IATA Certified",
+    "ASITA Member",
+    "ISO Certified",
+  ];
+
   return (
     <div>
       {/* Hero Section */}
@@ -39,7 +81,9 @@ export default function Tentang() {
               </div>
             </div>
             <div className="bg-purple-100 rounded-lg p-8 text-center">
-              <div className="text-6xl mb-4">🕌</div>
+              <div className="flex justify-center mb-4">
+                <Target className="w-16 h-16 text-purple-600" />
+              </div>
               <h3 className="text-2xl font-bold text-purple-600 mb-4">
                 Visi Kami
               </h3>
@@ -112,70 +156,19 @@ export default function Tentang() {
             Mengapa Memilih DzawaniTravel?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
-              <div className="text-4xl mb-4 text-center">✓</div>
-              <h3 className="text-xl font-semibold mb-3 text-center text-purple-600">
-                Terpercaya & Berlisensi
-              </h3>
-              <p className="text-gray-600 text-center">
-                Terdaftar resmi dan memiliki izin dari Kementerian Agama serta 
-                Kementerian Pariwisata
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
-              <div className="text-4xl mb-4 text-center">💰</div>
-              <h3 className="text-xl font-semibold mb-3 text-center text-purple-600">
-                Harga Kompetitif
-              </h3>
-              <p className="text-gray-600 text-center">
-                Paket dengan harga terbaik dan sistem pembayaran yang fleksibel 
-                sesuai kemampuan Anda
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
-              <div className="text-4xl mb-4 text-center">🏨</div>
-              <h3 className="text-xl font-semibold mb-3 text-center text-purple-600">
-                Fasilitas Terbaik
-              </h3>
-              <p className="text-gray-600 text-center">
-                Hotel bintang 5, transportasi nyaman, dan pelayanan maksimal 
-                untuk kenyamanan Anda
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
-              <div className="text-4xl mb-4 text-center">👥</div>
-              <h3 className="text-xl font-semibold mb-3 text-center text-purple-600">
-                Tim Profesional
-              </h3>
-              <p className="text-gray-600 text-center">
-                Didampingi pembimbing dan tour guide berpengalaman yang siap 
-                membantu Anda
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
-              <div className="text-4xl mb-4 text-center">🛡️</div>
-              <h3 className="text-xl font-semibold mb-3 text-center text-purple-600">
-                Jaminan Keamanan
-              </h3>
-              <p className="text-gray-600 text-center">
-                Asuransi perjalanan dan jaminan keamanan untuk setiap jamaah 
-                dan wisatawan
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
-              <div className="text-4xl mb-4 text-center">📞</div>
-              <h3 className="text-xl font-semibold mb-3 text-center text-purple-600">
-                Layanan 24/7
-              </h3>
-              <p className="text-gray-600 text-center">
-                Customer service yang responsif dan siap membantu Anda kapan saja
-              </p>
-            </div>
+            {whyChooseUs.map((item, index) => (
+              <div key={index} className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                <div className="flex justify-center mb-4">
+                  <item.Icon className="w-12 h-12 text-purple-600" />
+                </div>
+                <h3 className="text-xl font-semibold mb-3 text-center text-purple-600">
+                  {item.title}
+                </h3>
+                <p className="text-gray-600 text-center">
+                  {item.description}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -187,22 +180,14 @@ export default function Tentang() {
             Sertifikasi & Penghargaan
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <div className="text-5xl mb-3">🏆</div>
-              <p className="text-gray-700 font-medium">Terdaftar Kemenag</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <div className="text-5xl mb-3">🏆</div>
-              <p className="text-gray-700 font-medium">IATA Certified</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <div className="text-5xl mb-3">🏆</div>
-              <p className="text-gray-700 font-medium">ASITA Member</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <div className="text-5xl mb-3">🏆</div>
-              <p className="text-gray-700 font-medium">ISO Certified</p>
-            </div>
+            {certifications.map((cert, index) => (
+              <div key={index} className="bg-white p-6 rounded-lg shadow-md text-center">
+                <div className="flex justify-center mb-3">
+                  <Award className="w-16 h-16 text-purple-600" />
+                </div>
+                <p className="text-gray-700 font-medium">{cert}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
