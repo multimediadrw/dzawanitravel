@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mosque, Plane, Globe, CheckCircle, DollarSign, Hotel, Users } from "lucide-react";
+import { Church, Plane, Globe, CheckCircle, DollarSign, Hotel, Users } from "lucide-react";
 
 export default function Home() {
   const packages = [
@@ -8,7 +8,7 @@ export default function Home() {
       title: "Umroh Reguler 9 Hari",
       description: "Paket umroh reguler dengan fasilitas lengkap dan nyaman",
       features: ["Hotel Bintang 5", "Makkah 4 Malam", "Madinah 4 Malam", "Visa & Perlengkapan"],
-      Icon: Mosque,
+      Icon: Church,
     },
     {
       id: 2,
