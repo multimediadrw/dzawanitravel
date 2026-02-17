@@ -44,21 +44,7 @@ export default function CTASection() {
         </div>
       </div>
 
-      {/* Bottom mosque dome shape */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg
-          viewBox="0 0 1440 120"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          preserveAspectRatio="none"
-        >
-          {/* Main dome curves pattern */}
-          <path
-            d="M0 120V80 Q120 40 180 40 Q240 40 360 80 Q480 40 540 40 Q600 40 720 80 Q840 40 900 40 Q960 40 1080 80 Q1200 40 1260 40 Q1320 40 1440 80 V120 Z"
-            fill="white"
-          />
-        </svg>
-      </div>
+
     </section>
   );
 }
