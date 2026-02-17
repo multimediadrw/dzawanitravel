@@ -1,56 +1,23 @@
+"use client";
+
 import type { Metadata } from "next";
 import Image from "next/image";
-
-export const metadata: Metadata = {
-  title: "Galeri - Dzawani Travel Indonesia",
-  description:
-    "Galeri foto perjalanan umroh bersama Dzawani Travel Indonesia. Lihat momen-momen indah jamaah kami di Tanah Suci.",
-};
+import { useState } from "react";
 
 const galleryItems = [
-  {
-    title: "Jamaah di Masjidil Haram",
-    description: "Kebersamaan jamaah Dzawani Travel di dalam Masjidil Haram",
-    image: "/galeri/img1.jpg",
-  },
-  {
-    title: "Foto Bersama di Ka'bah",
-    description: "Momen indah jamaah berfoto dengan latar Ka'bah",
-    image: "/galeri/img2.jpg",
-  },
-  {
-    title: "Jamaah di Masjidil Haram",
-    description: "Kebersamaan jamaah di area Masjidil Haram",
-    image: "/galeri/img3.jpg",
-  },
-  {
-    title: "Doa di Masjidil Haram",
-    description: "Momen khusyuk berdoa di dalam Masjidil Haram",
-    image: "/galeri/img4.jpg",
-  },
-  {
-    title: "Jamaah di Depan Pintu Raja Abdul Aziz",
-    description: "Foto bersama di depan pintu masuk Masjidil Haram",
-    image: "/galeri/img5.jpg",
-  },
-  {
-    title: "Abraj Al Bait Tower",
-    description: "Pemandangan Abraj Al Bait Clock Tower di Makkah",
-    image: "/galeri/img6.jpg",
-  },
-  {
-    title: "Jamaah di Malam Hari",
-    description: "Kebersamaan jamaah di area Masjidil Haram malam hari",
-    image: "/galeri/img7.jpg",
-  },
-  {
-    title: "Jamaah di Masjidil Haram",
-    description: "Momen kebersamaan jamaah Dzawani Travel",
-    image: "/galeri/img8.jpg",
-  },
+  "/galeri/img1.jpg",
+  "/galeri/img2.jpg",
+  "/galeri/img3.jpg",
+  "/galeri/img4.jpg",
+  "/galeri/img5.jpg",
+  "/galeri/img6.jpg",
+  "/galeri/img7.jpg",
+  "/galeri/img8.jpg",
 ];
 
 export default function GaleriPage() {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   return (
     <>
       {/* Hero */}
@@ -70,33 +37,20 @@ export default function GaleriPage() {
       {/* Gallery */}
       <section className="section-padding bg-cream">
         <div className="container-main mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {galleryItems.map((item, index) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+            {galleryItems.map((image, index) => (
               <div
                 key={index}
-                className="group relative aspect-[4/3] rounded-3xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
+                onClick={() => setSelectedImage(image)}
+                className="group relative aspect-square rounded-3xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
               >
-                {/* Image */}
                 <Image
-                  src={item.image}
-                  alt={item.title}
+                  src={image}
+                  alt={`Galeri Dzawani Travel ${index + 1}`}
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-500"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
                 />
-
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-300" />
-
-                {/* Text */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <h3 className="font-bold text-lg md:text-xl mb-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-white/90 text-sm md:text-base">
-                    {item.description}
-                  </p>
-                </div>
               </div>
             ))}
           </div>
@@ -147,6 +101,41 @@ export default function GaleriPage() {
           </div>
         </div>
       </section>
+
+      {/* Lightbox Modal */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4"
+          onClick={() => setSelectedImage(null)}
+        >
+          <button
+            onClick={() => setSelectedImage(null)}
+            className="absolute top-4 right-4 text-white hover:text-magenta-light transition-colors p-2"
+            aria-label="Close"
+          >
+            <svg
+              className="w-8 h-8"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+          <div className="relative w-full h-full max-w-6xl max-h-[90vh]">
+            <Image
+              src={selectedImage}
+              alt="Galeri Dzawani Travel"
+              fill
+              className="object-contain"
+              sizes="100vw"
+              quality={100}
+            />
+          </div>
+        </div>
+      )}
     </>
   );
 }
