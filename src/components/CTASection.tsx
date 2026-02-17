@@ -34,7 +34,7 @@ export default function CTASection() {
               Pilih Paket Sekarang
             </Link>
             <Link
-              href="https://wa.me/6281234567890"
+              href="https://wa.me/6281122222254"
               target="_blank"
               className="bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white font-bold py-4 px-10 rounded-full hover:bg-white/20 transition-all duration-300 text-lg"
             >

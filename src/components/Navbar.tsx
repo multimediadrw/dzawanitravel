@@ -64,7 +64,7 @@ export default function Navbar() {
               </Link>
             ))}
             <Link
-              href="https://wa.me/6281234567890"
+              href="https://wa.me/6281122222254"
               target="_blank"
               className="ml-4 btn-primary text-sm py-2.5 px-6"
             >
@@ -121,7 +121,7 @@ export default function Navbar() {
               </Link>
             ))}
             <Link
-              href="https://wa.me/6281234567890"
+              href="https://wa.me/6281122222254"
               target="_blank"
               className="mt-2 btn-primary text-center text-sm"
               onClick={() => setIsOpen(false)}

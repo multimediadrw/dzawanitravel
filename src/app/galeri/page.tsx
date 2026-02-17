@@ -84,7 +84,7 @@ export default function GaleriPage() {
               perjalanan umroh.
             </p>
             <a
-              href="https://instagram.com/dzawanitravel"
+              href="https://www.instagram.com/p/DUXFsk_j8n1/"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary inline-flex items-center gap-2"

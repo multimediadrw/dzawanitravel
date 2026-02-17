@@ -242,7 +242,7 @@ export default function PaketUmrohPage() {
                       Daftar Sekarang
                     </Link>
                     <Link
-                      href="https://wa.me/6281234567890"
+                      href="https://wa.me/6281122222254"
                       target="_blank"
                       className="flex items-center justify-center w-12 h-12 rounded-full bg-success/10 text-success hover:bg-success hover:text-white transition-all duration-300"
                       aria-label="WhatsApp"
