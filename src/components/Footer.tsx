@@ -40,7 +40,6 @@ export default function Footer() {
               {[
                 { href: "/", label: "Beranda" },
                 { href: "/paket-umroh", label: "Paket Umroh" },
-                { href: "/tentang-kami", label: "Tentang Kami" },
                 { href: "/galeri", label: "Galeri" },
                 { href: "/kontak", label: "Kontak" },
               ].map((link) => (
