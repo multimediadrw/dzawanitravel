@@ -158,6 +158,24 @@ export default function KontakPage() {
               <form className="space-y-5">
                 <div>
                   <label
+                    htmlFor="service"
+                    className="block text-sm font-semibold text-charcoal mb-2"
+                  >
+                    Jenis Layanan
+                  </label>
+                  <select
+                    id="service"
+                    className="w-full px-4 py-3 rounded-xl border border-grey-light focus:border-magenta focus:ring-2 focus:ring-magenta/20 outline-none transition-all text-sm text-charcoal"
+                  >
+                    <option value="">Pilih jenis layanan</option>
+                    <option value="tabungan">Daftar Tabungan Umroh</option>
+                    <option value="konsultasi">Konsultasi</option>
+                    <option value="daftar">Daftar Umroh Langsung</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label
                     htmlFor="name"
                     className="block text-sm font-semibold text-charcoal mb-2"
                   >
