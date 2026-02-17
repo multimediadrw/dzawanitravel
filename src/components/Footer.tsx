@@ -114,7 +114,7 @@ export default function Footer() {
                   />
                 </svg>
                 <p className="text-white/70 text-sm">
-                  +62 08112222254
+                  08112222254
                 </p>
               </div>
               <div className="flex items-start gap-3">

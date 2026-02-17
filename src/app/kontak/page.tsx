@@ -61,7 +61,7 @@ export default function KontakPage() {
                       target="_blank"
                       className="text-success font-semibold text-sm hover:underline"
                     >
-                      +62 08112222254
+                      08112222254
                     </Link>
                   </div>
                 </div>
@@ -89,7 +89,7 @@ export default function KontakPage() {
                       Senin - Sabtu, 08:00 - 20:00 WIB
                     </p>
                     <p className="text-purple font-semibold text-sm">
-                      +62 08112222254
+                      08112222254
                     </p>
                   </div>
                 </div>
