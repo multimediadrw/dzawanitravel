@@ -19,7 +19,7 @@ export default function HeroSection() {
       <div className="absolute bottom-20 left-10 w-96 h-96 bg-gold/10 rounded-full blur-3xl" />
 
       {/* Content */}
-      <div className="relative container-main mx-auto px-4 md:px-8 pt-24 pb-16">
+      <div className="relative container-main mx-auto px-4 md:px-8 pt-32 md:pt-40 pb-16">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="text-white">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-6">

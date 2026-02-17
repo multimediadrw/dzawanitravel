@@ -1,6 +1,6 @@
 export default function CaraBergabung() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white pt-20">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-purple to-magenta text-white py-24">
         <div className="container-main mx-auto px-4 md:px-8 text-center">
