@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+@theme {
+  --color-magenta: #e85297;
+  --color-magenta-light: #f472b6;
+  --color-magenta-dark: #c2185b;
+  --color-purple: #503861;
+  --color-purple-light: #6b4f7e;
+  --color-purple-dark: #3a2747;
+  --color-charcoal: #332c2a;
+  --color-gold: #C5A059;
+  --color-gold-light: #d4b87a;
+  --color-cream: #F9F5EB;
+  --color-cream-dark: #f0e8d8;
+  --color-success: #2D9C65;
+  --color-error: #D32F2F;
+  --color-grey-light: #E0E0E0;
+  --color-grey-medium: #9E9E9E;
+
+  --font-gilroy: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-gilroy);
+    color: var(--color-charcoal);
+    background-color: #ffffff;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--color-purple);
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-magenta text-white font-bold py-3 px-8 rounded-full hover:bg-magenta-dark transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
+  }
+
+  .btn-secondary {
+    @apply bg-purple text-white font-bold py-3 px-8 rounded-full hover:bg-purple-dark transition-all duration-300 shadow-lg hover:shadow-xl;
+  }
+
+  .btn-outline {
+    @apply border-2 border-magenta text-magenta font-bold py-3 px-8 rounded-full hover:bg-magenta hover:text-white transition-all duration-300;
+  }
+
+  .card-package {
+    @apply bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-grey-light/50 hover:-translate-y-1;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-24 px-4 md:px-8;
+  }
+
+  .container-main {
+    @apply max-w-7xl mx-auto;
+  }
+
+  .gradient-purple {
+    background: linear-gradient(135deg, var(--color-purple) 0%, var(--color-purple-dark) 100%);
+  }
+
+  .gradient-magenta {
+    background: linear-gradient(135deg, var(--color-magenta) 0%, var(--color-magenta-dark) 100%);
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, var(--color-magenta) 0%, var(--color-purple) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-purple-light);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-purple);
+}
+
+/* Animation keyframes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
