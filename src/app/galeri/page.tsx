@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Galeri - Dzawani Travel Indonesia",
@@ -8,52 +9,44 @@ export const metadata: Metadata = {
 
 const galleryItems = [
   {
-    title: "Masjidil Haram",
-    description: "Keindahan Masjidil Haram di malam hari",
-    color: "from-purple to-purple-dark",
-    icon: "🕋",
+    title: "Jamaah di Masjidil Haram",
+    description: "Kebersamaan jamaah Dzawani Travel di dalam Masjidil Haram",
+    image: "/galeri/img1.jpg",
   },
   {
-    title: "Masjid Nabawi",
-    description: "Masjid Nabawi yang megah di Madinah",
-    color: "from-magenta to-magenta-dark",
-    icon: "🕌",
+    title: "Foto Bersama di Ka'bah",
+    description: "Momen indah jamaah berfoto dengan latar Ka'bah",
+    image: "/galeri/img2.jpg",
   },
   {
-    title: "Jamaah Dzawani",
-    description: "Kebersamaan jamaah dalam perjalanan",
-    color: "from-purple-light to-purple",
-    icon: "👥",
+    title: "Jamaah di Masjidil Haram",
+    description: "Kebersamaan jamaah di area Masjidil Haram",
+    image: "/galeri/img3.jpg",
   },
   {
-    title: "Hotel Makkah",
-    description: "Akomodasi nyaman dekat Haram",
-    color: "from-gold to-gold-light",
-    icon: "🏨",
+    title: "Doa di Masjidil Haram",
+    description: "Momen khusyuk berdoa di dalam Masjidil Haram",
+    image: "/galeri/img4.jpg",
   },
   {
-    title: "Tawaf",
-    description: "Momen sakral tawaf di Ka'bah",
-    color: "from-purple-dark to-purple",
-    icon: "🤲",
+    title: "Jamaah di Depan Pintu Raja Abdul Aziz",
+    description: "Foto bersama di depan pintu masuk Masjidil Haram",
+    image: "/galeri/img5.jpg",
   },
   {
-    title: "Ziarah",
-    description: "Perjalanan ziarah ke tempat bersejarah",
-    color: "from-magenta-dark to-magenta",
-    icon: "🌙",
+    title: "Abraj Al Bait Tower",
+    description: "Pemandangan Abraj Al Bait Clock Tower di Makkah",
+    image: "/galeri/img6.jpg",
   },
   {
-    title: "Manasik Umroh",
-    description: "Persiapan manasik sebelum keberangkatan",
-    color: "from-purple to-magenta",
-    icon: "📖",
+    title: "Jamaah di Malam Hari",
+    description: "Kebersamaan jamaah di area Masjidil Haram malam hari",
+    image: "/galeri/img7.jpg",
   },
   {
-    title: "Keberangkatan",
-    description: "Momen keberangkatan jamaah ke Tanah Suci",
-    color: "from-magenta to-purple",
-    icon: "✈️",
+    title: "Jamaah di Masjidil Haram",
+    description: "Momen kebersamaan jamaah Dzawani Travel",
+    image: "/galeri/img8.jpg",
   },
 ];
 
@@ -77,28 +70,30 @@ export default function GaleriPage() {
       {/* Gallery */}
       <section className="section-padding bg-cream">
         <div className="container-main mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {galleryItems.map((item, index) => (
               <div
                 key={index}
-                className={`group relative aspect-square rounded-2xl overflow-hidden cursor-pointer bg-gradient-to-br ${item.color} shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1`}
+                className="group relative aspect-[4/3] rounded-3xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
               >
-                {/* Icon placeholder */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-6xl md:text-7xl opacity-30 group-hover:opacity-50 group-hover:scale-110 transition-all duration-300">
-                    {item.icon}
-                  </span>
-                </div>
+                {/* Image */}
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-500"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
 
                 {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-300" />
 
                 {/* Text */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 text-white translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                  <h3 className="font-bold text-sm md:text-base">
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <h3 className="font-bold text-lg md:text-xl mb-2">
                     {item.title}
                   </h3>
-                  <p className="text-white/80 text-xs md:text-sm">
+                  <p className="text-white/90 text-sm md:text-base">
                     {item.description}
                   </p>
                 </div>
@@ -107,32 +102,30 @@ export default function GaleriPage() {
           </div>
 
           {/* Info */}
-          <div className="mt-12 text-center p-8 bg-white rounded-2xl shadow-sm border border-grey-light/30">
-            <div className="w-16 h-16 rounded-full bg-magenta/10 text-magenta flex items-center justify-center mx-auto mb-4">
+          <div className="mt-16 text-center p-8 md:p-10 bg-white rounded-3xl shadow-lg border border-grey-light/30">
+            <div className="w-16 h-16 rounded-full bg-magenta/10 text-magenta flex items-center justify-center mx-auto mb-6">
               <svg
                 className="w-8 h-8"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               >
                 <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
                   strokeWidth={1.5}
                   d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
                 />
                 <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
                   strokeWidth={1.5}
                   d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"
                 />
               </svg>
             </div>
-            <h3 className="text-xl font-bold text-purple mb-2">
+            <h3 className="text-2xl font-bold text-purple mb-3">
               Lebih Banyak Foto?
             </h3>
-            <p className="text-charcoal/70 mb-4">
+            <p className="text-charcoal/70 mb-6 text-lg">
               Kunjungi Instagram kami untuk melihat lebih banyak foto dan video
               perjalanan umroh.
             </p>
