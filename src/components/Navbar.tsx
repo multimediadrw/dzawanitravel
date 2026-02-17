@@ -34,22 +34,15 @@ export default function Navbar() {
       <div className="container-main mx-auto px-4 md:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3">
+          <Link href="/" className="flex items-center">
             <Image
               src="/logo.png"
               alt="Dzawani Travel Indonesia"
-              width={50}
-              height={50}
-              className="h-12 w-auto"
+              width={200}
+              height={60}
+              className="h-10 w-auto md:h-12"
+              priority
             />
-            <div className="hidden sm:block">
-              <p className="text-purple font-extrabold text-lg leading-tight tracking-tight">
-                DZAWANI
-              </p>
-              <p className="text-magenta font-bold text-sm leading-tight tracking-tight">
-                TRAVEL
-              </p>
-            </div>
           </Link>
 
           {/* Desktop Nav */}
