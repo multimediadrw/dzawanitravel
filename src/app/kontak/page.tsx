@@ -57,11 +57,11 @@ export default function KontakPage() {
                       Chat langsung dengan tim kami
                     </p>
                     <Link
-                      href="https://wa.me/6281122222254"
+                      href="https://wa.me/6208112222254"
                       target="_blank"
                       className="text-success font-semibold text-sm hover:underline"
                     >
-                      +62 811-2222-254
+                      +62 08112222254
                     </Link>
                   </div>
                 </div>
@@ -89,7 +89,7 @@ export default function KontakPage() {
                       Senin - Sabtu, 08:00 - 20:00 WIB
                     </p>
                     <p className="text-purple font-semibold text-sm">
-                      +62 811-2222-254
+                      +62 08112222254
                     </p>
                   </div>
                 </div>
@@ -264,7 +264,7 @@ export default function KontakPage() {
                 <p className="text-xs text-grey-medium text-center">
                   Atau hubungi langsung via{" "}
                   <Link
-                    href="https://wa.me/6281122222254"
+                    href="https://wa.me/6208112222254"
                     target="_blank"
                     className="text-success font-semibold hover:underline"
                   >

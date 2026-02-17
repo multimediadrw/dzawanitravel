@@ -114,7 +114,7 @@ export default function Footer() {
                   />
                 </svg>
                 <p className="text-white/70 text-sm">
-                  +62 811-2222-254
+                  +62 08112222254
                 </p>
               </div>
               <div className="flex items-start gap-3">
