@@ -1,8 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { PlusIcon, TrashIcon, UploadIcon } from '@/components/admin/Icons';
-import Image from 'next/image';
+import { useState, useEffect } from 'react';
+import { UploadIcon, TrashIcon } from '@/components/admin/Icons';
 
 interface GaleriItem {
   id: string;
@@ -12,58 +11,79 @@ interface GaleriItem {
 }
 
 export default function GaleriAdmin() {
-  const [items, setItems] = useState<GaleriItem[]>([
-    { id: '1', url: '/gallery/1.jpg', caption: 'Keberangkatan Umroh Dzawani Travel', createdAt: '2024-01-15' },
-    { id: '2', url: '/gallery/2.jpg', caption: 'Jamaah di Masjidil Haram', createdAt: '2024-01-16' },
-    { id: '3', url: '/gallery/3.jpg', caption: 'Kunjungan ke Masjid Nabawi', createdAt: '2024-01-17' },
-    { id: '4', url: '/gallery/4.jpg', caption: 'Manasik Haji bersama Dzawani Travel', createdAt: '2024-01-18' },
-    { id: '5', url: '/gallery/5.jpg', caption: 'Persiapan keberangkatan jamaah', createdAt: '2024-01-19' },
-    { id: '6', url: '/gallery/6.jpg', caption: 'Jamaah di depan Kabah', createdAt: '2024-01-20' },
-    { id: '7', url: '/gallery/7.jpg', caption: 'Ziarah ke Jabal Rahmah', createdAt: '2024-01-21' },
-    { id: '8', url: '/gallery/8.jpg', caption: 'Kepulangan jamaah dengan penuh kebahagiaan', createdAt: '2024-01-22' },
-  ]);
+  const [items, setItems] = useState<GaleriItem[]>([]);
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
     url: '',
     caption: '',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    const newItem: GaleriItem = {
-      ...formData,
-      id: Date.now().toString(),
-      createdAt: new Date().toISOString().split('T')[0],
-    };
-    setItems([newItem, ...items]);
+  useEffect(() => {
+    fetchItems();
+  }, []);
 
-    // Reset form
-    setFormData({
-      url: '',
-      caption: '',
-    });
-    setIsFormOpen(false);
-  };
-
-  const handleDelete = (id: string) => {
-    if (confirm('Yakin ingin menghapus foto ini?')) {
-      setItems(items.filter(item => item.id !== id));
+  const fetchItems = async () => {
+    try {
+      const res = await fetch('/api/galeri');
+      const data = await res.json();
+      setItems(data);
+    } catch (error) {
+      console.error('Error fetching galeri:', error);
+    } finally {
+      setLoading(false);
     }
   };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    try {
+      const res = await fetch('/api/galeri', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const newItem = await res.json();
+      setItems([newItem, ...items]);
+      
+      setFormData({ url: '', caption: '' });
+      setIsFormOpen(false);
+    } catch (error) {
+      console.error('Error saving galeri:', error);
+      alert('Gagal menyimpan data. Silakan coba lagi.');
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!confirm('Yakin ingin menghapus foto ini?')) return;
+    
+    try {
+      await fetch(`/api/galeri/${id}`, { method: 'DELETE' });
+      setItems(items.filter(item => item.id !== id));
+    } catch (error) {
+      console.error('Error deleting galeri:', error);
+      alert('Gagal menghapus data. Silakan coba lagi.');
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-gray-600">Memuat data...</div>
+      </div>
+    );
+  }
 
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Kelola Galeri</h1>
-          <p className="text-sm text-gray-600 mt-1">Total {items.length} foto</p>
+          <h1 className="text-3xl font-bold text-gray-900">Kelola Galeri Foto</h1>
+          <p className="text-sm text-gray-600 mt-1">Total: {items.length} foto</p>
         </div>
         <button
-          onClick={() => {
-            setIsFormOpen(true);
-            setFormData({ url: '', caption: '' });
-          }}
+          onClick={() => setIsFormOpen(true)}
           className="flex items-center gap-2 bg-purple-600 text-white px-5 py-2.5 rounded-xl hover:bg-purple-700 transition-colors font-medium"
         >
           <UploadIcon className="w-5 h-5" />
@@ -80,14 +100,13 @@ export default function GaleriAdmin() {
                 URL Foto
               </label>
               <input
-                type="text"
+                type="url"
                 required
                 value={formData.url}
                 onChange={(e) => setFormData({ ...formData, url: e.target.value })}
                 className="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                placeholder="/gallery/foto.jpg atau https://..."
+                placeholder="https://example.com/image.jpg"
               />
-              <p className="text-xs text-gray-500 mt-1">Upload foto ke folder /public/gallery terlebih dahulu</p>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -122,29 +141,38 @@ export default function GaleriAdmin() {
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {items.map((item) => (
-          <div key={item.id} className="bg-white rounded-2xl shadow-md overflow-hidden group">
-            <div className="relative aspect-square">
-              <Image
-                src={item.url}
-                alt={item.caption}
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div className="p-4">
-              <p className="text-sm text-gray-900 font-medium mb-1 line-clamp-2">{item.caption}</p>
-              <p className="text-xs text-gray-500 mb-3">{item.createdAt}</p>
-              <button
-                onClick={() => handleDelete(item.id)}
-                className="flex items-center gap-1 text-red-600 hover:text-red-800 font-medium text-sm"
-              >
-                <TrashIcon className="w-4 h-4" />
-                <span>Hapus</span>
-              </button>
-            </div>
+        {items.length === 0 ? (
+          <div className="col-span-full bg-white rounded-2xl shadow-md p-8 text-center text-gray-500">
+            Belum ada foto di galeri. Klik "Upload Foto" untuk menambahkan.
           </div>
-        ))}
+        ) : (
+          items.map((item) => (
+            <div key={item.id} className="bg-white rounded-2xl shadow-md overflow-hidden group">
+              <div className="aspect-square relative overflow-hidden">
+                <img
+                  src={item.url}
+                  alt={item.caption}
+                  className="w-full h-full object-cover rounded-t-2xl"
+                />
+              </div>
+              <div className="p-4">
+                <p className="text-sm text-gray-900 font-medium line-clamp-2 mb-2">
+                  {item.caption}
+                </p>
+                <p className="text-xs text-gray-500 mb-3">
+                  {new Date(item.createdAt).toLocaleDateString('id-ID')}
+                </p>
+                <button
+                  onClick={() => handleDelete(item.id)}
+                  className="w-full flex items-center justify-center gap-2 bg-red-50 text-red-600 px-3 py-2 rounded-lg hover:bg-red-100 transition-colors text-sm font-medium"
+                >
+                  <TrashIcon className="w-4 h-4" />
+                  <span>Hapus</span>
+                </button>
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
