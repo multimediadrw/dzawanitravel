@@ -5,7 +5,7 @@ import Image from "next/image"
 
 export default function AdminLoginPage() {
   const handleGoogleLogin = async () => {
-    await signIn("google", { callbackUrl: "/admin/dashboard" })
+    await signIn("google", { callbackUrl: "/admin" })
   }
 
   return (

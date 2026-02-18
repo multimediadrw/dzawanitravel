@@ -1,42 +1,23 @@
-import NextAuth from "next-auth"
-import Google from "next-auth/providers/google"
-import { prisma } from "./prisma"
+import { NextAuthOptions } from "next-auth"
+import GoogleProvider from "next-auth/providers/google"
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+export const authOptions: NextAuthOptions = {
   providers: [
-    Google({
-      clientId: process.env.AUTH_GOOGLE_ID!,
-      clientSecret: process.env.AUTH_GOOGLE_SECRET!,
+    GoogleProvider({
+      clientId: process.env.AUTH_GOOGLE_ID || "",
+      clientSecret: process.env.AUTH_GOOGLE_SECRET || "",
     }),
   ],
   callbacks: {
-    async signIn({ user, account, profile }) {
+    async signIn({ user }) {
       // Hanya izinkan email dzawani.marketing@gmail.com
-      if (user.email !== process.env.ADMIN_EMAIL) {
+      const adminEmail = process.env.ADMIN_EMAIL || "dzawani.marketing@gmail.com"
+      if (user.email !== adminEmail) {
         return false
       }
-
-      // Simpan atau update user di database
-      try {
-        await prisma.adminUser.upsert({
-          where: { email: user.email },
-          update: {
-            name: user.name,
-            image: user.image,
-          },
-          create: {
-            email: user.email!,
-            name: user.name,
-            image: user.image,
-          },
-        })
-      } catch (error) {
-        console.error("Error saving admin user:", error)
-      }
-
       return true
     },
-    async session({ session, token }) {
+    async session({ session }) {
       return session
     },
   },
@@ -44,4 +25,5 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signIn: "/admin/login",
     error: "/admin/login",
   },
-})
+  secret: process.env.AUTH_SECRET,
+}
