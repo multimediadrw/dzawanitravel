@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { PlusIcon, EditIcon, TrashIcon, StarIcon } from '@/components/admin/Icons';
 
 interface Testimoni {
@@ -16,6 +16,7 @@ export default function TestimoniAdmin() {
   const [items, setItems] = useState<Testimoni[]>([]);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
     nama: '',
     kota: '',
@@ -23,28 +24,51 @@ export default function TestimoniAdmin() {
     testimoni: '',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    fetchItems();
+  }, []);
+
+  const fetchItems = async () => {
+    try {
+      const res = await fetch('/api/testimoni');
+      const data = await res.json();
+      setItems(data);
+    } catch (error) {
+      console.error('Error fetching testimoni:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (editingId) {
-      setItems(items.map(item => 
-        item.id === editingId 
-          ? { ...formData, id: editingId, rating: Number(formData.rating), tanggal: item.tanggal }
-          : item
-      ));
-      setEditingId(null);
-    } else {
-      const newItem: Testimoni = {
-        ...formData,
-        id: Date.now().toString(),
-        rating: Number(formData.rating),
-        tanggal: new Date().toISOString().split('T')[0],
-      };
-      setItems([newItem, ...items]);
-    }
+    try {
+      if (editingId) {
+        const res = await fetch(`/api/testimoni/${editingId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        });
+        const updated = await res.json();
+        setItems(items.map(item => item.id === editingId ? updated : item));
+        setEditingId(null);
+      } else {
+        const res = await fetch('/api/testimoni', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        });
+        const newItem = await res.json();
+        setItems([newItem, ...items]);
+      }
 
-    setFormData({ nama: '', kota: '', rating: '5', testimoni: '' });
-    setIsFormOpen(false);
+      setFormData({ nama: '', kota: '', rating: '5', testimoni: '' });
+      setIsFormOpen(false);
+    } catch (error) {
+      console.error('Error saving testimoni:', error);
+      alert('Gagal menyimpan data. Silakan coba lagi.');
+    }
   };
 
   const handleEdit = (item: Testimoni) => {
@@ -58,18 +82,32 @@ export default function TestimoniAdmin() {
     setIsFormOpen(true);
   };
 
-  const handleDelete = (id: string) => {
-    if (confirm('Yakin ingin menghapus testimoni ini?')) {
+  const handleDelete = async (id: string) => {
+    if (!confirm('Yakin ingin menghapus testimoni ini?')) return;
+    
+    try {
+      await fetch(`/api/testimoni/${id}`, { method: 'DELETE' });
       setItems(items.filter(item => item.id !== id));
+    } catch (error) {
+      console.error('Error deleting testimoni:', error);
+      alert('Gagal menghapus data. Silakan coba lagi.');
     }
   };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-gray-600">Memuat data...</div>
+      </div>
+    );
+  }
 
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Kelola Testimoni Mitra</h1>
-          <p className="text-sm text-gray-600 mt-1">Total {items.length} testimoni</p>
+          <p className="text-sm text-gray-600 mt-1">Total: {items.length} testimoni</p>
         </div>
         <button
           onClick={() => {
@@ -92,37 +130,30 @@ export default function TestimoniAdmin() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Nama Mitra
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Nama Mitra</label>
                 <input
                   type="text"
                   required
                   value={formData.nama}
                   onChange={(e) => setFormData({ ...formData, nama: e.target.value })}
                   className="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  placeholder="Nama lengkap"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Kota
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Kota</label>
                 <input
                   type="text"
                   required
                   value={formData.kota}
                   onChange={(e) => setFormData({ ...formData, kota: e.target.value })}
                   className="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  placeholder="Kota asal"
                 />
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Rating
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Rating</label>
               <select
+                required
                 value={formData.rating}
                 onChange={(e) => setFormData({ ...formData, rating: e.target.value })}
                 className="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
@@ -135,16 +166,13 @@ export default function TestimoniAdmin() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Testimoni
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Testimoni</label>
               <textarea
                 required
                 value={formData.testimoni}
                 onChange={(e) => setFormData({ ...formData, testimoni: e.target.value })}
                 rows={4}
                 className="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                placeholder="Tulis testimoni..."
               />
             </div>
             <div className="flex gap-3">
@@ -152,7 +180,7 @@ export default function TestimoniAdmin() {
                 type="submit"
                 className="bg-purple-600 text-white px-5 py-2.5 rounded-xl hover:bg-purple-700 transition-colors font-medium text-sm"
               >
-                {editingId ? 'Update Testimoni' : 'Simpan Testimoni'}
+                {editingId ? 'Update' : 'Simpan'}
               </button>
               <button
                 type="button"
@@ -195,28 +223,29 @@ export default function TestimoniAdmin() {
                     <td className="px-4 py-3 text-sm text-gray-900 font-medium">{item.nama}</td>
                     <td className="px-4 py-3 text-sm text-gray-600">{item.kota}</td>
                     <td className="px-4 py-3 text-sm">
-                      <div className="flex items-center gap-1">
-                        <StarIcon className="w-4 h-4 text-yellow-500 fill-yellow-500" />
-                        <span className="text-gray-900 font-medium">{item.rating}</span>
+                      <div className="flex gap-0.5">
+                        {[...Array(item.rating)].map((_, i) => (
+                          <StarIcon key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                        ))}
                       </div>
                     </td>
                     <td className="px-4 py-3 text-sm text-gray-600 max-w-md">
                       <p className="line-clamp-2">{item.testimoni}</p>
                     </td>
-                    <td className="px-4 py-3 text-sm text-gray-600">{item.tanggal}</td>
+                    <td className="px-4 py-3 text-sm text-gray-600">
+                      {new Date(item.tanggal).toLocaleDateString('id-ID')}
+                    </td>
                     <td className="px-4 py-3 text-sm">
                       <div className="flex gap-2 justify-center">
                         <button
                           onClick={() => handleEdit(item)}
                           className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 font-medium"
-                          title="Edit"
                         >
                           <EditIcon className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => handleDelete(item.id)}
                           className="inline-flex items-center gap-1 text-red-600 hover:text-red-800 font-medium"
-                          title="Hapus"
                         >
                           <TrashIcon className="w-4 h-4" />
                         </button>
