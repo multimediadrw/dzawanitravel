@@ -43,10 +43,7 @@ export default function RootLayout({
   return (
     <html lang="id" className={inter.variable}>
       <body className="antialiased">
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
-        <WhatsAppButton />
+        {children}
       </body>
     </html>
   );
