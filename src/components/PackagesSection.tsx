@@ -162,7 +162,7 @@ export default function PackagesSection() {
                 </ul>
 
                 <Link
-                  href="/kontak"
+                  href="/reservasi"
                   className={`block text-center font-bold py-3 px-6 rounded-full transition-all duration-300 ${
                     pkg.popular
                       ? "btn-primary w-full"

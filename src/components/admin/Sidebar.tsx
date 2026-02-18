@@ -15,6 +15,7 @@ import {
 const menuItems = [
   { name: 'Dashboard', href: '/admin', icon: DashboardIcon },
   { name: 'Paket Umroh', href: '/admin/paket-umroh', icon: PlaneIcon },
+  { name: 'Reservasi', href: '/admin/reservasi', icon: FileTextIcon },
   { name: 'Galeri', href: '/admin/galeri', icon: ImageIcon },
   { name: 'Testimoni Mitra', href: '/admin/testimoni', icon: MessageIcon },
   { name: 'FAQ Mitra', href: '/admin/faq', icon: HelpCircleIcon },

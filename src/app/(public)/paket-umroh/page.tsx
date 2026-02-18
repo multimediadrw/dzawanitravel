@@ -234,7 +234,7 @@ export default function PaketUmrohPage() {
 
                   <div className="flex gap-3">
                     <Link
-                      href="/kontak"
+                      href="/reservasi"
                       className={`flex-1 text-center font-bold py-3 px-6 rounded-full transition-all duration-300 ${
                         pkg.popular ? "btn-primary" : "btn-outline"
                       }`}

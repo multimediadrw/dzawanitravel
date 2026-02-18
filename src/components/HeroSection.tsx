@@ -47,10 +47,10 @@ export default function HeroSection() {
                 Lihat Paket Umroh
               </Link>
               <Link
-                href="/kontak"
+                href="/reservasi"
                 className="border-2 border-white/30 text-white font-bold py-3 px-8 rounded-full hover:bg-white/10 transition-all duration-300"
               >
-                Konsultasi Gratis
+                Reservasi Sekarang
               </Link>
             </div>
 

@@ -8,7 +8,7 @@ const navLinks = [
   { href: "/", label: "Beranda" },
   { href: "/paket-umroh", label: "Paket Umroh" },
   { href: "/galeri", label: "Galeri" },
-  { href: "/kontak", label: "Kontak" },
+  { href: "/reservasi", label: "Reservasi" },
 ];
 
 const mitraLinks = [

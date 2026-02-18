@@ -108,3 +108,21 @@ model KontakMasuk {
 
   @@map("kontak_masuk")
 }
+
+model Reservasi {
+  id                    String   @id @default(cuid())
+  namaLengkap           String
+  email                 String
+  noTelepon             String
+  alamat                String   @db.Text
+  paketId               String
+  paketNama             String
+  jumlahJamaah          Int
+  tanggalKeberangkatan  String
+  catatan               String?  @db.Text
+  status                String   @default("pending")
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  @@map("reservasi")
+}

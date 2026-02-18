@@ -41,7 +41,7 @@ export default function Footer() {
                 { href: "/", label: "Beranda" },
                 { href: "/paket-umroh", label: "Paket Umroh" },
                 { href: "/galeri", label: "Galeri" },
-                { href: "/kontak", label: "Kontak" },
+                { href: "/reservasi", label: "Reservasi" },
               ].map((link) => (
                 <li key={link.href}>
                   <Link
