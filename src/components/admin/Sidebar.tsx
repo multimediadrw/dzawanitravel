@@ -2,14 +2,22 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { 
+  DashboardIcon, 
+  PlaneIcon, 
+  ImageIcon, 
+  MessageIcon, 
+  HelpCircleIcon, 
+  FileTextIcon 
+} from './Icons';
 
 const menuItems = [
-  { name: 'Dashboard', href: '/admin', icon: '📊' },
-  { name: 'Paket Umroh', href: '/admin/paket-umroh', icon: '✈️' },
-  { name: 'Galeri', href: '/admin/galeri', icon: '🖼️' },
-  { name: 'Testimoni Mitra', href: '/admin/testimoni', icon: '💬' },
-  { name: 'FAQ Mitra', href: '/admin/faq', icon: '❓' },
-  { name: 'Konten Mitra', href: '/admin/konten-mitra', icon: '📝' },
+  { name: 'Dashboard', href: '/admin', icon: DashboardIcon },
+  { name: 'Paket Umroh', href: '/admin/paket-umroh', icon: PlaneIcon },
+  { name: 'Galeri', href: '/admin/galeri', icon: ImageIcon },
+  { name: 'Testimoni Mitra', href: '/admin/testimoni', icon: MessageIcon },
+  { name: 'FAQ Mitra', href: '/admin/faq', icon: HelpCircleIcon },
+  { name: 'Konten Mitra', href: '/admin/konten-mitra', icon: FileTextIcon },
 ];
 
 export default function Sidebar() {
@@ -23,6 +31,7 @@ export default function Sidebar() {
           <ul className="space-y-2">
             {menuItems.map((item) => {
               const isActive = pathname === item.href;
+              const Icon = item.icon;
               return (
                 <li key={item.href}>
                   <Link
@@ -33,7 +42,7 @@ export default function Sidebar() {
                         : 'hover:bg-purple-800'
                     }`}
                   >
-                    <span className="text-xl">{item.icon}</span>
+                    <Icon className="w-5 h-5" />
                     <span>{item.name}</span>
                   </Link>
                 </li>

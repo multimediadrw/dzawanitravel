@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { PlusIcon, EditIcon, TrashIcon } from '@/components/admin/Icons';
 
 interface PaketUmroh {
   id: string;
@@ -94,9 +95,10 @@ export default function PaketUmrohAdmin() {
               deskripsi: '',
             });
           }}
-          className="bg-purple-600 text-white px-6 py-3 rounded-xl hover:bg-purple-700 transition-colors font-medium"
+          className="flex items-center gap-2 bg-purple-600 text-white px-5 py-2.5 rounded-xl hover:bg-purple-700 transition-colors font-medium"
         >
-          + Tambah Paket Baru
+          <PlusIcon className="w-5 h-5" />
+          <span>Tambah Paket</span>
         </button>
       </div>
 
@@ -116,7 +118,7 @@ export default function PaketUmrohAdmin() {
                   required
                   value={formData.nama}
                   onChange={(e) => setFormData({ ...formData, nama: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   placeholder="Contoh: Paket Umroh 9 Hari"
                 />
               </div>
@@ -129,7 +131,7 @@ export default function PaketUmrohAdmin() {
                   required
                   value={formData.harga}
                   onChange={(e) => setFormData({ ...formData, harga: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   placeholder="25000000"
                 />
               </div>
@@ -142,7 +144,7 @@ export default function PaketUmrohAdmin() {
                   required
                   value={formData.durasi}
                   onChange={(e) => setFormData({ ...formData, durasi: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   placeholder="9 Hari 7 Malam"
                 />
               </div>
@@ -155,7 +157,7 @@ export default function PaketUmrohAdmin() {
                   required
                   value={formData.maskapai}
                   onChange={(e) => setFormData({ ...formData, maskapai: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   placeholder="Garuda Indonesia"
                 />
               </div>
@@ -168,7 +170,7 @@ export default function PaketUmrohAdmin() {
                   required
                   value={formData.hotel}
                   onChange={(e) => setFormData({ ...formData, hotel: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   placeholder="Bintang 5"
                 />
               </div>
@@ -181,15 +183,15 @@ export default function PaketUmrohAdmin() {
                 required
                 value={formData.deskripsi}
                 onChange={(e) => setFormData({ ...formData, deskripsi: e.target.value })}
-                rows={4}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                rows={3}
+                className="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                 placeholder="Deskripsi lengkap paket umroh..."
               />
             </div>
             <div className="flex gap-3">
               <button
                 type="submit"
-                className="bg-purple-600 text-white px-6 py-3 rounded-xl hover:bg-purple-700 transition-colors font-medium"
+                className="bg-purple-600 text-white px-5 py-2.5 rounded-xl hover:bg-purple-700 transition-colors font-medium text-sm"
               >
                 {editingId ? 'Update Paket' : 'Simpan Paket'}
               </button>
@@ -199,7 +201,7 @@ export default function PaketUmrohAdmin() {
                   setIsFormOpen(false);
                   setEditingId(null);
                 }}
-                className="bg-gray-200 text-gray-700 px-6 py-3 rounded-xl hover:bg-gray-300 transition-colors font-medium"
+                className="bg-gray-200 text-gray-700 px-5 py-2.5 rounded-xl hover:bg-gray-300 transition-colors font-medium text-sm"
               >
                 Batal
               </button>
@@ -209,53 +211,57 @@ export default function PaketUmrohAdmin() {
       )}
 
       <div className="bg-white rounded-2xl shadow-md overflow-hidden">
-        <table className="w-full">
-          <thead className="bg-purple-100">
-            <tr>
-              <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">Nama Paket</th>
-              <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">Harga</th>
-              <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">Durasi</th>
-              <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">Maskapai</th>
-              <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">Aksi</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-200">
-            {pakets.length === 0 ? (
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead className="bg-purple-100">
               <tr>
-                <td colSpan={5} className="px-6 py-8 text-center text-gray-500">
-                  Belum ada paket umroh. Klik "Tambah Paket Baru" untuk menambahkan.
-                </td>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-900 uppercase tracking-wider">Nama Paket</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-900 uppercase tracking-wider">Harga</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-900 uppercase tracking-wider">Durasi</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-900 uppercase tracking-wider">Maskapai</th>
+                <th className="px-4 py-3 text-center text-xs font-semibold text-gray-900 uppercase tracking-wider">Aksi</th>
               </tr>
-            ) : (
-              pakets.map((paket) => (
-                <tr key={paket.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 text-sm text-gray-900 font-medium">{paket.nama}</td>
-                  <td className="px-6 py-4 text-sm text-gray-900">
-                    Rp {paket.harga.toLocaleString('id-ID')}
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-600">{paket.durasi}</td>
-                  <td className="px-6 py-4 text-sm text-gray-600">{paket.maskapai}</td>
-                  <td className="px-6 py-4 text-sm">
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => handleEdit(paket)}
-                        className="text-blue-600 hover:text-blue-800 font-medium"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => handleDelete(paket.id)}
-                        className="text-red-600 hover:text-red-800 font-medium"
-                      >
-                        Hapus
-                      </button>
-                    </div>
+            </thead>
+            <tbody className="divide-y divide-gray-200">
+              {pakets.length === 0 ? (
+                <tr>
+                  <td colSpan={5} className="px-4 py-8 text-center text-gray-500 text-sm">
+                    Belum ada paket umroh. Klik "Tambah Paket" untuk menambahkan.
                   </td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+              ) : (
+                pakets.map((paket) => (
+                  <tr key={paket.id} className="hover:bg-gray-50">
+                    <td className="px-4 py-3 text-sm text-gray-900 font-medium">{paket.nama}</td>
+                    <td className="px-4 py-3 text-sm text-gray-900">
+                      Rp {paket.harga.toLocaleString('id-ID')}
+                    </td>
+                    <td className="px-4 py-3 text-sm text-gray-600">{paket.durasi}</td>
+                    <td className="px-4 py-3 text-sm text-gray-600">{paket.maskapai}</td>
+                    <td className="px-4 py-3 text-sm">
+                      <div className="flex gap-2 justify-center">
+                        <button
+                          onClick={() => handleEdit(paket)}
+                          className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 font-medium"
+                          title="Edit"
+                        >
+                          <EditIcon className="w-4 h-4" />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(paket.id)}
+                          className="inline-flex items-center gap-1 text-red-600 hover:text-red-800 font-medium"
+                          title="Hapus"
+                        >
+                          <TrashIcon className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
