@@ -28,13 +28,15 @@ export default function Sidebar() {
     <aside className="w-64 bg-gradient-to-b from-purple-900 to-purple-700 text-white min-h-screen fixed left-0 top-0">
       <div className="p-6">
         <div className="flex items-center gap-3 mb-8">
-          <Image
-            src="/logo.png"
-            alt="Dzawani Travel"
-            width={40}
-            height={40}
-            className="rounded-lg"
-          />
+          <div className="bg-white p-2 rounded-lg">
+            <Image
+              src="/logo.png"
+              alt="Dzawani Travel"
+              width={32}
+              height={32}
+              className="object-contain"
+            />
+          </div>
           <div>
             <h1 className="text-xl font-bold leading-tight">DZAWANI</h1>
             <p className="text-xs text-purple-200">Admin Panel</p>
