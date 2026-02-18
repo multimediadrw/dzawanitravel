@@ -1,0 +1,110 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model PaketUmroh {
+  id         String   @id @default(cuid())
+  nama       String
+  harga      Int
+  durasi     String
+  maskapai   String
+  hotel      String
+  deskripsi  String   @db.Text
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("paket_umroh")
+}
+
+model Galeri {
+  id         String   @id @default(cuid())
+  url        String
+  caption    String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("galeri")
+}
+
+model Testimoni {
+  id         String   @id @default(cuid())
+  nama       String
+  kota       String
+  rating     Int
+  testimoni  String   @db.Text
+  tanggal    DateTime @default(now())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("testimoni")
+}
+
+model FAQ {
+  id         String   @id @default(cuid())
+  pertanyaan String
+  jawaban    String   @db.Text
+  kategori   String
+  urutan     Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("faq")
+}
+
+model KontenMitra {
+  id                String   @id @default(cuid())
+  heroTitle         String
+  heroSubtitle      String
+  heroDescription   String   @db.Text
+  benefit1Title     String
+  benefit1Desc      String
+  benefit2Title     String
+  benefit2Desc      String
+  benefit3Title     String
+  benefit3Desc      String
+  benefit4Title     String
+  benefit4Desc      String
+  ctaTitle          String
+  ctaDescription    String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@map("konten_mitra")
+}
+
+model PendaftaranMitra {
+  id              String   @id @default(cuid())
+  namaLengkap     String
+  email           String
+  nomorWhatsApp   String
+  kota            String
+  pengalaman      String
+  alasan          String   @db.Text
+  status          String   @default("pending")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("pendaftaran_mitra")
+}
+
+model KontakMasuk {
+  id              String   @id @default(cuid())
+  nama            String
+  email           String
+  nomorWhatsApp   String
+  jenisLayanan    String
+  pesan           String   @db.Text
+  status          String   @default("baru")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("kontak_masuk")
+}

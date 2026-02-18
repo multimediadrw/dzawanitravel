@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { PlusIcon, EditIcon, TrashIcon } from '@/components/admin/Icons';
 
 interface PaketUmroh {
@@ -17,6 +17,7 @@ export default function PaketUmrohAdmin() {
   const [pakets, setPakets] = useState<PaketUmroh[]>([]);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
     nama: '',
     harga: '',
@@ -26,37 +27,62 @@ export default function PaketUmrohAdmin() {
     deskripsi: '',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Fetch data from API
+  useEffect(() => {
+    fetchPakets();
+  }, []);
+
+  const fetchPakets = async () => {
+    try {
+      const res = await fetch('/api/paket-umroh');
+      const data = await res.json();
+      setPakets(data);
+    } catch (error) {
+      console.error('Error fetching pakets:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (editingId) {
-      // Update existing
-      setPakets(pakets.map(p => 
-        p.id === editingId 
-          ? { ...formData, id: editingId, harga: Number(formData.harga) }
-          : p
-      ));
-      setEditingId(null);
-    } else {
-      // Add new
-      const newPaket: PaketUmroh = {
-        ...formData,
-        id: Date.now().toString(),
-        harga: Number(formData.harga),
-      };
-      setPakets([...pakets, newPaket]);
-    }
+    try {
+      if (editingId) {
+        // Update existing
+        const res = await fetch(`/api/paket-umroh/${editingId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        });
+        const updated = await res.json();
+        setPakets(pakets.map(p => p.id === editingId ? updated : p));
+        setEditingId(null);
+      } else {
+        // Add new
+        const res = await fetch('/api/paket-umroh', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        });
+        const newPaket = await res.json();
+        setPakets([newPaket, ...pakets]);
+      }
 
-    // Reset form
-    setFormData({
-      nama: '',
-      harga: '',
-      durasi: '',
-      maskapai: '',
-      hotel: '',
-      deskripsi: '',
-    });
-    setIsFormOpen(false);
+      // Reset form
+      setFormData({
+        nama: '',
+        harga: '',
+        durasi: '',
+        maskapai: '',
+        hotel: '',
+        deskripsi: '',
+      });
+      setIsFormOpen(false);
+    } catch (error) {
+      console.error('Error saving paket:', error);
+      alert('Gagal menyimpan data. Silakan coba lagi.');
+    }
   };
 
   const handleEdit = (paket: PaketUmroh) => {
@@ -72,11 +98,25 @@ export default function PaketUmrohAdmin() {
     setIsFormOpen(true);
   };
 
-  const handleDelete = (id: string) => {
-    if (confirm('Yakin ingin menghapus paket ini?')) {
+  const handleDelete = async (id: string) => {
+    if (!confirm('Yakin ingin menghapus paket ini?')) return;
+    
+    try {
+      await fetch(`/api/paket-umroh/${id}`, { method: 'DELETE' });
       setPakets(pakets.filter(p => p.id !== id));
+    } catch (error) {
+      console.error('Error deleting paket:', error);
+      alert('Gagal menghapus data. Silakan coba lagi.');
     }
   };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-gray-600">Memuat data...</div>
+      </div>
+    );
+  }
 
   return (
     <div>
