@@ -7,6 +7,7 @@ import Image from "next/image";
 const navLinks = [
   { href: "/", label: "Beranda" },
   { href: "/paket-umroh", label: "Paket Umroh" },
+  { href: "/tabungan-umroh", label: "Tabungan Umroh" },
   { href: "/galeri", label: "Galeri" },
   { href: "/reservasi", label: "Reservasi" },
 ];
