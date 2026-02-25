@@ -51,9 +51,9 @@ export default function HeroSection() {
         </div>
       ))}
 
-      {/* Purple overlay gradient - deep/dark khas brand Dzawani Travel */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#3a2747]/95 via-[#503861]/85 to-[#3a2747]/75" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#2a1a35]/90 via-[#3a2747]/40 to-transparent" />
+      {/* Purple overlay gradient - tipis agar foto terlihat jelas, khas brand Dzawani Travel */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#3a2747]/75 via-[#503861]/55 to-[#3a2747]/45" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#2a1a35]/60 via-[#3a2747]/20 to-transparent" />
 
       {/* Slide label bottom left */}
       <div className="absolute bottom-8 left-8 z-10">
