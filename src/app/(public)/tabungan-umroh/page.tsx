@@ -183,7 +183,7 @@ export default function TabunganUmrohPage() {
 
     // Auto-redirect ke WhatsApp dengan pesan otomatis
     const pesan = encodeURIComponent(
-      `Halo Dzawani Travel, saya ${formData.nama}, saya baru saja mengisi form di web dan ingin konsultasi lanjut tentang Tabungan Umroh 100rb. Domisili saya di ${formData.domisili}, rencana keberangkatan ${formData.keberangkatan}. Nomor WA saya: ${formData.whatsapp}`
+      `Assalamu'alaikum Dzawani Travel, saya ${formData.nama}, saya baru saja mengisi form di web dan ingin konsultasi lanjut tentang Tabungan Umroh. Domisili saya di ${formData.domisili}, rencana keberangkatan ${formData.keberangkatan}. Nomor WA saya: ${formData.whatsapp}`
     );
 
     setSubmitted(true);
@@ -197,7 +197,7 @@ export default function TabunganUmrohPage() {
 
   const handleWAClick = () => {
     const pesan = encodeURIComponent(
-      "Halo Dzawani, saya ingin buka Tabungan Umroh 100rb, persyaratannya apa saja?"
+      "Assalamu'alaikum Dzawani Travel, saya ingin buka Tabungan Umroh, persyaratannya apa saja?"
     );
     window.open(`https://wa.me/${waNumber}?text=${pesan}`, "_blank");
   };
