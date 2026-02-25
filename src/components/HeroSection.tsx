@@ -1,142 +1,138 @@
 "use client";
-
 import Link from "next/link";
+import { useState, useEffect } from "react";
+import Image from "next/image";
+
+const slides = [
+  {
+    src: "/hero-makkah.jpg",
+    alt: "Masjidil Haram Makkah",
+    label: "Masjidil Haram, Makkah Al-Mukarramah",
+  },
+  {
+    src: "/hero-madinah.jpg",
+    alt: "Masjid Nabawi Madinah",
+    label: "Masjid Nabawi, Madinah Al-Munawwarah",
+  },
+];
 
 export default function HeroSection() {
+  const [current, setCurrent] = useState(0);
+  const [fade, setFade] = useState(true);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setFade(false);
+      setTimeout(() => {
+        setCurrent((prev) => (prev + 1) % slides.length);
+        setFade(true);
+      }, 600);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 gradient-purple" />
-      <div
-        className="absolute inset-0 opacity-10"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }}
-      />
+      {/* Background Slideshow */}
+      {slides.map((slide, i) => (
+        <div
+          key={slide.src}
+          className="absolute inset-0 transition-opacity duration-700"
+          style={{ opacity: i === current ? (fade ? 1 : 0) : 0 }}
+        >
+          <Image
+            src={slide.src}
+            alt={slide.alt}
+            fill
+            className="object-cover object-center"
+            priority={i === 0}
+            sizes="100vw"
+          />
+        </div>
+      ))}
 
-      {/* Decorative elements */}
-      <div className="absolute top-20 right-10 w-72 h-72 bg-magenta/20 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 left-10 w-96 h-96 bg-gold/10 rounded-full blur-3xl" />
+      {/* Dark overlay gradient */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+
+      {/* Slide label bottom left */}
+      <div className="absolute bottom-8 left-8 z-10">
+        <p className="text-white/60 text-xs tracking-widest uppercase">
+          {slides[current].label}
+        </p>
+      </div>
+
+      {/* Slide dots bottom right */}
+      <div className="absolute bottom-8 right-8 z-10 flex gap-2 items-center">
+        {slides.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => {
+              setFade(false);
+              setTimeout(() => { setCurrent(i); setFade(true); }, 300);
+            }}
+            className={`h-2 rounded-full transition-all duration-300 ${
+              i === current ? "bg-white w-6" : "bg-white/40 w-2"
+            }`}
+          />
+        ))}
+      </div>
 
       {/* Content */}
-      <div className="relative container-main mx-auto px-4 md:px-8 pt-32 md:pt-40 pb-16">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="text-white">
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
-              <span className="w-2 h-2 bg-gold rounded-full animate-pulse" />
-              <span className="text-sm font-medium text-gold-light">
-                Biro Perjalanan Umroh Terpercaya
-              </span>
-            </div>
-
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 text-white">
-              Wujudkan Impian
-              <br />
-              <span className="text-magenta-light">Ibadah Umroh</span>
-              <br />
-              Anda Bersama Kami
-            </h1>
-
-            <p className="text-lg md:text-xl text-white/80 mb-8 leading-relaxed max-w-lg">
-              Perjalanan spiritual ke Tanah Suci dengan pelayanan terbaik,
-              pembimbing berpengalaman, dan harga yang amanah.
-            </p>
-
-            <div className="flex flex-wrap gap-4">
-              <Link href="/paket-umroh" className="btn-primary text-lg">
-                Lihat Paket Umroh
-              </Link>
-              <Link
-                href="/reservasi"
-                className="border-2 border-white/30 text-white font-bold py-3 px-8 rounded-full hover:bg-white/10 transition-all duration-300"
-              >
-                Reservasi Sekarang
-              </Link>
-            </div>
-
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-white/10">
-              {[
-                { value: "5+", label: "Tahun Pengalaman" },
-                { value: "1000+", label: "Jamaah Terlayani" },
-                { value: "4.9", label: "Rating Kepuasan" },
-              ].map((stat) => (
-                <div key={stat.label}>
-                  <p className="text-3xl md:text-4xl font-extrabold text-gold">
-                    {stat.value}
-                  </p>
-                  <p className="text-sm text-white/60 mt-1">{stat.label}</p>
-                </div>
-              ))}
-            </div>
+      <div className="relative z-10 container-main mx-auto px-4 md:px-8 pt-32 md:pt-40 pb-16 w-full">
+        <div className="max-w-3xl">
+          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-6 border border-white/20">
+            <span className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse" />
+            <span className="text-sm font-medium text-yellow-300">
+              Biro Perjalanan Umroh Terpercaya
+            </span>
           </div>
 
-          {/* Right Side - Decorative Kaaba Illustration */}
-          <div className="hidden lg:flex items-center justify-center">
-            <div className="relative">
-              <div className="w-80 h-80 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 flex items-center justify-center animate-float">
-                <div className="text-center">
-                  <svg
-                    className="w-32 h-32 mx-auto text-gold mb-4"
-                    viewBox="0 0 100 100"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    {/* Kaaba simplified */}
-                    <rect
-                      x="25"
-                      y="30"
-                      width="50"
-                      height="50"
-                      rx="2"
-                      fill="currentColor"
-                      opacity="0.3"
-                    />
-                    <rect
-                      x="30"
-                      y="35"
-                      width="40"
-                      height="40"
-                      rx="1"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      fill="none"
-                    />
-                    <line
-                      x1="30"
-                      y1="55"
-                      x2="70"
-                      y2="55"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    />
-                    {/* Dome */}
-                    <path
-                      d="M35 30 Q50 10 65 30"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      fill="none"
-                    />
-                    <circle cx="50" cy="15" r="3" fill="currentColor" />
-                  </svg>
-                  <p className="text-white/60 text-lg font-medium">
-                    بِسْمِ اللَّهِ
-                  </p>
-                  <p className="text-white/40 text-sm mt-1">
-                    Bismillahirrahmanirrahim
-                  </p>
-                </div>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 text-white drop-shadow-lg">
+            Wujudkan Impian
+            <br />
+            <span className="text-yellow-300">Ibadah Umroh</span>
+            <br />
+            Anda Bersama Kami
+          </h1>
+
+          <p className="text-lg md:text-xl text-white/85 mb-8 leading-relaxed max-w-xl drop-shadow">
+            Perjalanan spiritual ke Tanah Suci dengan pelayanan terbaik,
+            pembimbing berpengalaman, dan harga yang amanah.
+          </p>
+
+          <div className="flex flex-wrap gap-4">
+            <Link
+              href="/paket-umroh"
+              className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 shadow-lg hover:shadow-purple-500/30 hover:scale-105"
+            >
+              Lihat Paket Umroh
+            </Link>
+            <Link
+              href="/reservasi"
+              className="border-2 border-white/50 text-white font-bold py-3 px-8 rounded-full hover:bg-white/15 backdrop-blur-sm transition-all duration-300"
+            >
+              Reservasi Sekarang
+            </Link>
+          </div>
+
+          {/* Stats */}
+          <div className="flex flex-wrap gap-8 mt-12 pt-8 border-t border-white/20">
+            {[
+              { value: "5+", label: "Tahun Pengalaman" },
+              { value: "1000+", label: "Jamaah Terlayani" },
+              { value: "4.9", label: "Rating Kepuasan" },
+            ].map((stat) => (
+              <div key={stat.label}>
+                <p className="text-3xl md:text-4xl font-extrabold text-yellow-300 drop-shadow">
+                  {stat.value}
+                </p>
+                <p className="text-sm text-white/60 mt-1">{stat.label}</p>
               </div>
-              {/* Orbiting dots */}
-              <div className="absolute -top-4 left-1/2 w-3 h-3 bg-magenta rounded-full animate-pulse" />
-              <div className="absolute top-1/2 -right-4 w-3 h-3 bg-gold rounded-full animate-pulse delay-500" />
-              <div className="absolute -bottom-4 left-1/3 w-3 h-3 bg-magenta-light rounded-full animate-pulse delay-1000" />
-            </div>
+            ))}
           </div>
         </div>
       </div>
-
-
     </section>
   );
 }
