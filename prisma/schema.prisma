@@ -109,6 +109,20 @@ model KontakMasuk {
   @@map("kontak_masuk")
 }
 
+model TabunganUmroh {
+  id                    String   @id @default(cuid())
+  namaLengkap           String
+  nomorWhatsApp         String
+  domisili              String
+  rencanaKeberangkatan  String
+  status                String   @default("pending")
+  catatan               String?  @db.Text
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  @@map("tabungan_umroh")
+}
+
 model Reservasi {
   id                    String   @id @default(cuid())
   namaLengkap           String

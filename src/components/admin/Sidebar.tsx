@@ -12,10 +12,20 @@ import {
   FileTextIcon 
 } from './Icons';
 
+const SavingsIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+    <path d="M19 8H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2z" />
+    <path d="M12 12v.01" />
+    <path d="M3 8l2-4h14l2 4" />
+    <circle cx="12" cy="14" r="1.5" />
+  </svg>
+);
+
 const menuItems = [
   { name: 'Dashboard', href: '/admin', icon: DashboardIcon },
   { name: 'Paket Umroh', href: '/admin/paket-umroh', icon: PlaneIcon },
   { name: 'Reservasi', href: '/admin/reservasi', icon: FileTextIcon },
+  { name: 'Tabungan Umroh', href: '/admin/tabungan-umroh', icon: SavingsIcon },
   { name: 'Galeri', href: '/admin/galeri', icon: ImageIcon },
   { name: 'Testimoni Mitra', href: '/admin/testimoni', icon: MessageIcon },
   { name: 'FAQ Mitra', href: '/admin/faq', icon: HelpCircleIcon },
