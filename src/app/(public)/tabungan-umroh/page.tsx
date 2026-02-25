@@ -1,6 +1,6 @@
 "use client";
 
-import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -497,22 +497,72 @@ export default function TabunganUmrohPage() {
             ))}
           </div>
 
-          {/* Partner / Trust Logos */}
-          <div className="bg-cream rounded-3xl p-8">
-            <p className="text-center text-charcoal/50 text-sm font-medium uppercase tracking-widest mb-6">
-              Didukung & Diakui Oleh
+          {/* Partner / Trust Logos - Infinite Marquee */}
+          <div className="bg-cream rounded-3xl py-8 overflow-hidden">
+            <p className="text-center text-charcoal/50 text-sm font-medium uppercase tracking-widest mb-8">
+              Didukung &amp; Diakui Oleh
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
-              {["BSI", "Kemenag RI", "BYOND", "ASITA", "AMPHURI", "5 PASTI UMRAH"].map(
-                (partner) => (
-                  <div
-                    key={partner}
-                    className="bg-white rounded-xl px-5 py-3 shadow-sm text-purple font-bold text-sm text-center min-w-[80px]"
-                  >
-                    {partner}
+            <div className="relative w-full overflow-hidden">
+              {/* Fade edges */}
+              <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-cream to-transparent z-10 pointer-events-none" />
+              <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-cream to-transparent z-10 pointer-events-none" />
+              {/* Marquee track */}
+              <div className="flex animate-marquee whitespace-nowrap">
+                {/* First set */}
+                {[
+                  { src: "/partners/logo-bsi.jpg", alt: "Bank Syariah Indonesia", h: "h-12" },
+                  { src: "/partners/logo-kemenag.svg", alt: "Kementerian Agama RI", h: "h-14" },
+                  { src: "/partners/logo-byond.png", alt: "BYOND by BSI", h: "h-12" },
+                  { src: "/partners/logo-asita.png", alt: "ASITA", h: "h-14" },
+                  { src: "/partners/logo-amphuri.png", alt: "AMPHURI", h: "h-10" },
+                ].map((logo, i) => (
+                  <div key={`a-${i}`} className="inline-flex items-center justify-center mx-10 shrink-0">
+                    <Image
+                      src={logo.src}
+                      alt={logo.alt}
+                      width={160}
+                      height={60}
+                      className={`${logo.h} w-auto object-contain`}
+                    />
                   </div>
-                )
-              )}
+                ))}
+                {/* Duplicate set for seamless loop */}
+                {[
+                  { src: "/partners/logo-bsi.jpg", alt: "Bank Syariah Indonesia", h: "h-12" },
+                  { src: "/partners/logo-kemenag.svg", alt: "Kementerian Agama RI", h: "h-14" },
+                  { src: "/partners/logo-byond.png", alt: "BYOND by BSI", h: "h-12" },
+                  { src: "/partners/logo-asita.png", alt: "ASITA", h: "h-14" },
+                  { src: "/partners/logo-amphuri.png", alt: "AMPHURI", h: "h-10" },
+                ].map((logo, i) => (
+                  <div key={`b-${i}`} className="inline-flex items-center justify-center mx-10 shrink-0">
+                    <Image
+                      src={logo.src}
+                      alt={logo.alt}
+                      width={160}
+                      height={60}
+                      className={`${logo.h} w-auto object-contain`}
+                    />
+                  </div>
+                ))}
+                {/* Third set for extra smoothness */}
+                {[
+                  { src: "/partners/logo-bsi.jpg", alt: "Bank Syariah Indonesia", h: "h-12" },
+                  { src: "/partners/logo-kemenag.svg", alt: "Kementerian Agama RI", h: "h-14" },
+                  { src: "/partners/logo-byond.png", alt: "BYOND by BSI", h: "h-12" },
+                  { src: "/partners/logo-asita.png", alt: "ASITA", h: "h-14" },
+                  { src: "/partners/logo-amphuri.png", alt: "AMPHURI", h: "h-10" },
+                ].map((logo, i) => (
+                  <div key={`c-${i}`} className="inline-flex items-center justify-center mx-10 shrink-0">
+                    <Image
+                      src={logo.src}
+                      alt={logo.alt}
+                      width={160}
+                      height={60}
+                      className={`${logo.h} w-auto object-contain`}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
