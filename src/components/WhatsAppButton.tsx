@@ -7,19 +7,16 @@ export default function WhatsAppButton() {
       href="https://wa.me/6208112222254?text=Assalamualaikum%2C%20saya%20ingin%20bertanya%20tentang%20paket%20umroh%20Dzawani%20Travel"
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-50 hover:scale-110 transition-all duration-300 group"
+      className="fixed bottom-6 right-4 md:bottom-6 md:right-6 z-50 hover:scale-110 transition-all duration-300"
       aria-label="Hubungi Admin"
     >
       <Image
         src="/hubungi-admin-icon.png"
         alt="Hubungi Admin"
-        width={64}
-        height={64}
-        className="w-14 h-14 md:w-16 md:h-16 object-contain drop-shadow-lg"
+        width={120}
+        height={120}
+        className="w-16 h-16 md:w-24 md:h-24 object-contain drop-shadow-xl"
       />
-      <span className="absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-white text-charcoal text-sm font-medium px-3 py-1.5 rounded-lg shadow-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-        Hubungi Admin
-      </span>
     </a>
   );
 }
