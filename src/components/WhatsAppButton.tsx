@@ -15,7 +15,7 @@ export default function WhatsAppButton() {
         alt="Hubungi Admin"
         width={64}
         height={64}
-        className="w-16 h-16 object-contain drop-shadow-lg"
+        className="w-14 h-14 md:w-16 md:h-16 object-contain drop-shadow-lg"
       />
       <span className="absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-white text-charcoal text-sm font-medium px-3 py-1.5 rounded-lg shadow-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
         Hubungi Admin
